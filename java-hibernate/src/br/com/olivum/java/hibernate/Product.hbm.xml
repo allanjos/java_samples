@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-2.0.dtd">
+<hibernate-mapping>
+    <class name="br.com.olivum.java.hibernate.Product" table="product">
+        <id name="id" column="id" type="int">
+            <generator class="increment"/>
+        </id> 
+        <property name="name" column="name" type="string"/>
+    </class>
+</hibernate-mapping>
