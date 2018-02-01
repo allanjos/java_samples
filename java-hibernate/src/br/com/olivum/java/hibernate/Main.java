@@ -6,47 +6,102 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
-import br.com.olivum.java.hibernate.Product;
+import org.hibernate.internal.util.config.ConfigurationException;
 
 public class Main {
-	private static SessionFactory sf;
+    private static SessionFactory sessionFactoryMySQL;
+    private static SessionFactory sessionFactorySqlServer;
 
-	public static void main(String[] args) { 
-		System.out.println("Starting");
+    private static String hibernateMySQLCfgFilePath = "hibernate.mysql.cfg.xml";
+    private static String hibernateMsSQLCfgFilePath = "hibernate.mssql.cfg.xml";
 
-		try {		
-			sf = new Configuration().configure().buildSessionFactory();
-		}
-		catch (Throwable ex) {
-			System.err.println("Error: " + ex);
+    public static void main(String[] args) {
+        System.out.println("Starting MySQL session");
 
-			throw new ExceptionInInitializerError(ex);
-		}
+        try {
+            sessionFactoryMySQL = new Configuration().configure(hibernateMySQLCfgFilePath).buildSessionFactory();
+        }
+        catch (ConfigurationException e) {
+            System.err.println("Error on loading configuration from " + hibernateMySQLCfgFilePath);
 
-		// Register new product
+            System.err.println("Exception: " + e);
 
-		Date date = new Date();
+            return;
+        }
+        catch (Throwable e) {
+            System.err.println("Error: " + e);
 
-		Product product = new Product();
-		product.setName("Product " + date.getTime());
+            return;
+        }
 
-		Session ss = sf.openSession();
+        System.out.println("Starting MS SQL Server session");
 
-		Transaction transaction = ss.beginTransaction();
+        try {
+            sessionFactorySqlServer = new Configuration().configure(hibernateMsSQLCfgFilePath).buildSessionFactory();
+        }
+        catch (ConfigurationException e) {
+            System.err.println("Error on loading configuration from " + hibernateMsSQLCfgFilePath);
 
-		// Saving objects to session
+            System.err.println("Exception: " + e);
 
-		ss.save(product);
+            return;
+        }
+        catch (Throwable e) {
+            System.err.println("Error: " + e);
 
-		// Commit transaction
+            return;
+        }
 
-		transaction.commit();
+        // Register in MySQL
 
-		ss.close();
+        // Register new product
 
-		sf.close();
+        Date date = new Date();
 
-		System.out.println("Finishing");
-	}
+        Product product = new Product();
+        product.setName("Product " + date.getTime());
+
+        Session sessionMySQL = sessionFactoryMySQL.openSession();
+
+        Transaction transactionMySQL = sessionMySQL.beginTransaction();
+
+        // Saving objects to session
+
+        sessionMySQL.save(product);
+
+        // Commit transaction
+
+        transactionMySQL.commit();
+
+        sessionMySQL.close();
+
+        sessionFactoryMySQL.close();
+
+        // Register in SQL Server
+
+        // Register new product
+
+        product = new Product();
+        product.setName("Product " + date.getTime());
+
+        Session sessionSqlServer = sessionFactorySqlServer.openSession();
+
+        Transaction transactionSqlServer = sessionSqlServer.beginTransaction();
+
+        // Saving objects to session
+
+        sessionSqlServer.save(product);
+
+        // Commit transaction
+
+        transactionSqlServer.commit();
+
+        sessionSqlServer.close();
+
+        sessionFactorySqlServer.close();
+
+        System.out.println("Finishing");
+
+        System.exit(0);
+    }
 }
