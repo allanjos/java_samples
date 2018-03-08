@@ -11,11 +11,15 @@ import org.hibernate.internal.util.config.ConfigurationException;
 public class Main {
     private static SessionFactory sessionFactoryMySQL;
     private static SessionFactory sessionFactorySqlServer;
+    private static SessionFactory sessionFactoryOracle;
 
     private static String hibernateMySQLCfgFilePath = "hibernate.mysql.cfg.xml";
     private static String hibernateMsSQLCfgFilePath = "hibernate.mssql.cfg.xml";
+    private static String hibernateOracleCfgFilePath = "hibernate.oracle.cfg.xml";
 
     public static void main(String[] args) {
+        // MySQL session
+
         System.out.println("Starting MySQL session");
 
         try {
@@ -34,6 +38,8 @@ public class Main {
             return;
         }
 
+        // SQL Server session
+
         System.out.println("Starting MS SQL Server session");
 
         try {
@@ -41,6 +47,26 @@ public class Main {
         }
         catch (ConfigurationException e) {
             System.err.println("Error on loading configuration from " + hibernateMsSQLCfgFilePath);
+
+            System.err.println("Exception: " + e);
+
+            return;
+        }
+        catch (Throwable e) {
+            System.err.println("Error: " + e);
+
+            return;
+        }
+
+        // Oracle session
+
+        System.out.println("Starting Oracle session");
+
+        try {
+            sessionFactoryOracle = new Configuration().configure(hibernateOracleCfgFilePath).buildSessionFactory();
+        }
+        catch (ConfigurationException e) {
+            System.err.println("Error on loading configuration from " + hibernateOracleCfgFilePath);
 
             System.err.println("Exception: " + e);
 
@@ -99,6 +125,29 @@ public class Main {
         sessionSqlServer.close();
 
         sessionFactorySqlServer.close();
+
+        // Register in Oracle
+
+        // Register new product
+
+        product = new Product();
+        product.setName("Product " + date.getTime());
+
+        Session sessionOracle = sessionFactoryOracle.openSession();
+
+        Transaction transactionOracle = sessionOracle.beginTransaction();
+
+        // Saving objects to session
+
+        sessionOracle.save(product);
+
+        // Commit transaction
+
+        transactionOracle.commit();
+
+        sessionOracle.close();
+
+        sessionFactoryOracle.close();
 
         System.out.println("Finishing");
 
