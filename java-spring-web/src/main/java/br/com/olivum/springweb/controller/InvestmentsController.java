@@ -1,4 +1,4 @@
-package br.com.olivum.financer.controller;
+package br.com.olivum.springweb.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

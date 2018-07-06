@@ -1,4 +1,4 @@
-package br.com.olivum.financer.config;
+package br.com.olivum.springweb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

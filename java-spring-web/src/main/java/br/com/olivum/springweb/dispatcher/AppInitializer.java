@@ -1,4 +1,4 @@
-package br.com.olivum.financer.dispatcher;
+package br.com.olivum.springweb.dispatcher;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
-import br.com.olivum.financer.config.WebMvcConfigure;
+import br.com.olivum.springweb.config.WebMvcConfigure;
 
 public class AppInitializer implements WebApplicationInitializer {
     @Override
