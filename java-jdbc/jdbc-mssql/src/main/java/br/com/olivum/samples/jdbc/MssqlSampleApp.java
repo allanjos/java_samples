@@ -20,10 +20,10 @@ public class MssqlSampleApp {
 
             Class.forName(driverName);
 
-            String serverName = "localhost:1433";
-            String databaseName = "commerce";
+            String serverName = "10.60.100.166:1433";
+            String databaseName = "whplus";
 
-            String url = "jdbc:sqlserver://" + serverName + ";databaseName=" + databaseName + ";integratedSecurity=true;";
+            String url = "jdbc:sqlserver://" + serverName + ";databaseName=" + databaseName + ";";
 
             String username = "admin01";
             String password = "sqlserver";
