@@ -6,8 +6,14 @@
     <title>home.jsp</title>
   </head>
   <body>
-    home.jsp
+    JSP test
     <br/>
     <% out.println("Your IP address is " + request.getRemoteAddr()); %>
+    <br/>
+    <ul>
+        <li>
+            <a href="./">Home page</a>
+        </li>
+    </ul>
   </body>
 </html>
