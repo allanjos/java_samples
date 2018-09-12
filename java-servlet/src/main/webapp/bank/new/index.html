@@ -3,17 +3,23 @@
     <head>
         <meta charset="utf-8"/>
         <title>User Login</title>
+        <script src="../../js/angular.js"></script>
     </head>
     <body>
         <h2>New bank</h2>
 
-        <form name="loginForm" method="POST" action="/java-servlet/servlet/bank/new">
-            <p>
-                Name: <input type="text" name="name" />
-            </p>
-            <p>
-                <input type="submit" value="Salvar" />
-            </p>
-        </form>
+        <div ng-app="app" ng-controller="bankNewCtrl">
+            <form name="loginForm">
+                <p>
+                    Name: <input type="text" ng-model="name"/>
+                </p>
+                <p>
+                    <button ng-click="bankSave()">Salvar</button>
+                </p>
+            </form>
+            <span ng-bind="status"></span>
+        </div>
     </body>
 </html>
+<script src="../../js/app.js"></script>
+<script src="../../js/bank_new_controller.js"></script>

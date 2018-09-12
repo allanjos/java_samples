@@ -6,15 +6,21 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
+
 import br.com.olivum.banking.database.BankDatabase;
 
 @WebListener
 public class ContextInitializer implements ServletContextListener, HttpSessionListener {
+    private static final Logger logger = Logger.getLogger(ContextInitializer.class);
     private BankDatabase database = null;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("ContextInitializer.contextInitialized()");
+        logger.debug("ContextInitializer.contextInitialized()");
+
+        BasicConfigurator.configure();
 
         database = BankDatabase.getInstance();
 
@@ -23,18 +29,18 @@ public class ContextInitializer implements ServletContextListener, HttpSessionLi
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("ContextInitializer.contextDestroyed()");
+        logger.debug("ContextInitializer.contextDestroyed()");
 
         database.close();
     }
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        System.out.println("ContextInitializer.sessionCreated()");
+        logger.debug("ContextInitializer.sessionCreated()");
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        System.out.println("ContextInitializer.sessionDestroyed()");
+        logger.debug("ContextInitializer.sessionDestroyed()");
     }
 }
