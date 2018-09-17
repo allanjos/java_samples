@@ -4,6 +4,8 @@ app.controller('bankNewCtrl', function($scope, $http) {
     $scope.bankSave = function() {
         console.log('bankSave()');
 
+        $scope.status = 'Saving information...';
+
         var data = {
             name: $scope.name
         };
@@ -25,6 +27,8 @@ app.controller('bankNewCtrl', function($scope, $http) {
 
                 if (obj.status == 0) {
                     $scope.status = 'Bank is registrated.';
+
+                    $scope.name = '';
                 }
                 else {
                     $scope.status = 'Error on bank registration.';
@@ -32,6 +36,8 @@ app.controller('bankNewCtrl', function($scope, $http) {
             },
             function(response) {
                 console.log('HTTP post error');
+
+                $scope.status = 'Error on bank registration (HTTP error).';
             }
         );
     };

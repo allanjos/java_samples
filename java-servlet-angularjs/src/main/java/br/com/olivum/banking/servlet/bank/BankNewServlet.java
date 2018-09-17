@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -83,22 +84,32 @@ public class BankNewServlet extends HttpServlet {
 
         RequestResponse requestResponse = new RequestResponse();
 
-        int id = (int) BankDatabase.getSession().save(bank);
+        try {
+            int id = (int) BankDatabase.getSession().save(bank);
 
-        if (id > 0) {
-            requestResponse.setStatus(ServerResponse.Status.OK);
-            requestResponse.setMessage("ok");
+            if (id > 0) {
+                requestResponse.setStatus(ServerResponse.Status.OK);
+                requestResponse.setMessage("ok");
+            }
+            else {
+                requestResponse.setStatus(ServerResponse.Status.ERROR);
+                requestResponse.setMessage("bank.new.error");
+            }
+
+            // Commit transaction
+
+            transaction.commit();
         }
-        else {
-            requestResponse.setStatus(ServerResponse.Status.OK);
-            requestResponse.setMessage("bank.new.error");
+        catch (ConstraintViolationException e) {
+            transaction.rollback();
+
+            logger.error("Exception (contraint violation): " + e.toString());
         }
+        catch (Exception e) {
+            transaction.rollback();
 
-        // Commit transaction
-
-        transaction.commit();
-
-        gson = new Gson();
+            logger.error("Exception: " + e.toString());
+        }
 
         response.getWriter().append(gson.toJson(requestResponse));
     }

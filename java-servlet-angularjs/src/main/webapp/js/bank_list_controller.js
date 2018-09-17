@@ -1,5 +1,3 @@
-window.app_dependencies.push('ngTable');
-
 app.controller('bankListCtrl', ['$scope', '$http', 'NgTableParams', function($scope, $http, NgTableParams) {
     $http.get("/java-servlet/servlet/bank/list").then(function(response) {
         var obj = response.data;

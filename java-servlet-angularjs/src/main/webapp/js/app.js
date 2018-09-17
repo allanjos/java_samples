@@ -1,13 +1,18 @@
-window.app_dependencies = [];
+var app = angular.module('app', ['ui.router', 'ngTable']);
 
-var app = angular.module('app', app_dependencies);
+app.config(function($stateProvider) {
+  var helloState = {
+    name: 'bank_list',
+    url: '/bank/list',
+    templateUrl: '/java-servlet/bank/list/index.html'
+  };
 
-app.run(function($rootScope) {
-    console.log('app.run()')
-});
+  var aboutState = {
+    name: 'bank_new',
+    url: '/bank/new',
+    templateUrl: '/java-servlet/bank/new/index.html'
+  };
 
-app.service('userService', function() {
-    this.checkAuthentication = function() {
-        console.log('userService.checkAuthentication()');
-    };
+  $stateProvider.state(helloState);
+  $stateProvider.state(aboutState);
 });

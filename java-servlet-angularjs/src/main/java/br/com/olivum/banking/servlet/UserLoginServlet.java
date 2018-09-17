@@ -1,7 +1,12 @@
 package br.com.olivum.banking.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,10 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Transaction;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 
 import br.com.olivum.banking.database.BankDatabase;
+import br.com.olivum.banking.model.Bank;
+import br.com.olivum.banking.model.User;
+import br.com.olivum.banking.model.UserSession;
 import br.com.olivum.banking.protocol.RequestResponse;
 import br.com.olivum.banking.protocol.ServerResponse;
 
@@ -37,58 +47,121 @@ public class UserLoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.debug("doPost()");
+
+        request.setCharacterEncoding("UTF-8");
+
         response.setContentType("application/json");
 
-        if (request.getParameter("username") == null || request.getParameter("password") == null) {
-            RequestResponse requestResponse = new RequestResponse();
+        logger.debug("Parameters: ");
 
+        StringBuffer stringBuffer = new StringBuffer();
+
+        String data = "";
+
+        try {
+            BufferedReader reader = request.getReader();
+
+            while ((data = reader.readLine()) != null) {
+                logger.debug("Partial data: " + data);
+
+                stringBuffer.append(data);
+            }
+        }
+        catch (Exception e) {
+            logger.debug("Exception: " + e.toString());
+
+            return;
+        }
+
+        String jsonStr = stringBuffer.toString();
+
+        logger.debug("Post data: " + jsonStr);
+
+        Gson gson = new Gson();
+
+        User userFromLogin = null;
+
+        try {
+            userFromLogin = gson.fromJson(jsonStr, User.class);
+
+            logger.debug("Post data: ");
+            logger.debug("Bank name: " + userFromLogin.getName());
+        }
+        catch (JsonIOException e) {
+            logger.error("Error parsing JSON request string: " + jsonStr);
+
+            return;
+        }
+
+        RequestResponse requestResponse = new RequestResponse();
+
+        if (userFromLogin.getName().length() == 0 || userFromLogin.getPassword().length() == 0) {
             requestResponse.setStatus(ServerResponse.Status.ERROR);
             requestResponse.setMessage("login.parameter.error");
-
-            Gson gson = new Gson();
 
             response.getWriter().append(gson.toJson(requestResponse));
 
             return;
         }
 
-        String userName = request.getParameter("username");
-        String password = request.getParameter("password");
+        logger.debug("login: " + userFromLogin.getName());
+        logger.debug("password: " + userFromLogin.getPassword());
 
-        logger.debug("login: " + userName);
-        logger.debug("password: " + password);
+        @SuppressWarnings("unchecked")
+        List<User> userList = BankDatabase.getSession().createQuery("from User where name=:name")
+                                                       .setParameter("name", userFromLogin.getName())
+                                                       .list();
 
-        // Login success
-        if (!userName.isEmpty() && !password.isEmpty()) {
-            HttpSession session = request.getSession();
+        if (userList.size() > 0) {
+            User user = userList.get(0);
 
-            session.setAttribute("username", userName);
+            logger.debug("User found: " + user.getName());
 
-            logger.debug("<h3>Login Success</h3>");
-            logger.debug("Total Active Session: " + request.getServletContext().getAttribute("activeSessions"));
-            logger.debug("<br/>Current User: " + session.getAttribute("username"));
+            if (user.getName().equals(userFromLogin.getName()) && user.getPassword().equals(userFromLogin.getPassword())) {
+                Transaction transaction = BankDatabase.getSession().beginTransaction();
 
-            RequestResponse requestResponse = new RequestResponse();
+                UserSession userSession = new UserSession();
 
-            requestResponse.setStatus(ServerResponse.Status.OK);
-            requestResponse.setMessage("login");
+                userSession.setUserId(user.getId());
 
-            Gson gson = new Gson();
+                Timestamp timestamp = new Timestamp((new Date()).getTime());
+                userSession.setStartDate(timestamp);
 
-            response.getWriter().append(gson.toJson(requestResponse));
+                int id = (int) BankDatabase.getSession().save(userSession);
+
+                if (id > 0) {
+                    logger.debug("User session is registered.");
+                }
+                else {
+                    logger.error("Error on trying to register the user session.");
+                }
+
+                // Commit transaction
+
+                transaction.commit();
+
+                // Update user variables
+
+                HttpSession session = request.getSession();
+
+                session.setAttribute("username", userFromLogin.getName());
+
+                logger.debug("Login OK");
+                logger.debug("Total Active Session: " + request.getServletContext().getAttribute("activeSessions"));
+                logger.debug("Current User: " + session.getAttribute("username"));
+
+                // Set response
+
+                requestResponse.setStatus(ServerResponse.Status.OK);
+                requestResponse.setMessage("login.ok");
+            }
+            else {
+                requestResponse.setStatus(ServerResponse.Status.ERROR);
+                requestResponse.setMessage("login.auth.error");
+            }
         }
-        // Login error
-        else {
-            logger.error("Login Failed. Parameter empty.");
 
-            RequestResponse requestResponse = new RequestResponse();
-
-            requestResponse.setStatus(ServerResponse.Status.ERROR);
-            requestResponse.setMessage("login.parameter.empty");
-
-            Gson gson = new Gson();
-
-            response.getWriter().append(gson.toJson(requestResponse));
-        }
+        response.getWriter().append(gson.toJson(requestResponse));
     }
 }

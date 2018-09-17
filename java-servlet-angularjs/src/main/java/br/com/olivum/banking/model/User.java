@@ -7,19 +7,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "bank", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = "user")
 @GenericGenerator(name = "id", strategy = "native")
-public class Bank implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(generator = "id")
     @Column(name = "id")
     private int id;
     private String name;
+    private String password;
 
     public int getId() {
         return id;
@@ -35,5 +35,13 @@ public class Bank implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

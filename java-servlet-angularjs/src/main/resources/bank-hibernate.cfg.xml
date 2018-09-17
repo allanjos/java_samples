@@ -9,9 +9,13 @@
         <property name="connection.password">banking486</property>
         <property name="connection.pool_size">1</property>
         <property name="show_sql">TRUE</property>
-        <property name="format_sql">false</property> 
+        <property name="format_sql">false</property>
         <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.jdbc.time_zone">UTC</property>
+        <property name="hibernate.hbm2ddl.import_files">db-dml.sql</property>
 
         <mapping class="br.com.olivum.banking.model.Bank"/>
+        <mapping class="br.com.olivum.banking.model.User"/>
+        <mapping class="br.com.olivum.banking.model.UserSession"/>
     </session-factory>
 </hibernate-configuration>

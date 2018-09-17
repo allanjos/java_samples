@@ -1,9 +1,8 @@
-java-jdbc/jdbc-mssql/resources/*.gz
-java-jdbc/jdbc-mssql/resources/*.jar
-java-jdbc/jdbc-mssql/resources/sqljdbc_4.2/
-
 # Mac OS
 .DS_Store
+
+# Visual Studio Code
+.vscode/
 
 # Eclipse
 
@@ -89,3 +88,7 @@ hs_err_pid*
 
 # Maven
 target/
+
+java-jdbc/jdbc-mssql/resources/*.gz
+java-jdbc/jdbc-mssql/resources/*.jar
+java-jdbc/jdbc-mssql/resources/sqljdbc_4.2/
