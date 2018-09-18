@@ -1,4 +1,6 @@
 <div ng-controller="bankListCtrl">
+    <h1>Banks</h1>
+
     <table ng-table="tableBanks" class="table" show-filter="true">
         <tr ng-repeat="bank in $data">
             <td title="'ID'" filter="{ id: 'number'}" sortable="'id'">

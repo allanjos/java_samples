@@ -1,4 +1,4 @@
-app.controller('userLoginCtrl', function($scope, $http) {
+app.controller('userLoginCtrl', function($scope, $http, $state) {
     $scope.status = '';
 
     $scope.login = function() {
@@ -28,6 +28,10 @@ app.controller('userLoginCtrl', function($scope, $http) {
 
                 if (obj.status == 0) {
                     $scope.status = 'User is authenticated.';
+
+                    console.log('Going to main page');
+
+                    $state.go("main");
                 }
                 else {
                     $scope.status = 'Error on user authentication.';

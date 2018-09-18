@@ -1,4 +1,4 @@
-app.controller('bankNewCtrl', function($scope, $http) {
+app.controller('bankNewCtrl', function($scope, $http, $state) {
     $scope.status = '';
 
     $scope.bankSave = function() {
@@ -26,9 +26,11 @@ app.controller('bankNewCtrl', function($scope, $http) {
                 console.log('message: ' + obj.message);
 
                 if (obj.status == 0) {
-                    $scope.status = 'Bank is registrated.';
+                    $scope.status = 'Bank is registered.';
 
                     $scope.name = '';
+
+                    $state.go('bank_list');
                 }
                 else {
                     $scope.status = 'Error on bank registration.';
