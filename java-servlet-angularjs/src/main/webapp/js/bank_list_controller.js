@@ -1,4 +1,8 @@
-app.controller('bankListCtrl', ['$scope', '$http', 'NgTableParams', function($scope, $http, NgTableParams) {
+app.controller('bankListCtrl', ['$scope', '$http', '$state', 'NgTableParams', function($scope, $http, $state, NgTableParams) {
+    $scope.newBankDialogRequest = function() {
+        $state.go('bank_new');
+    };
+
     $http.get("/java-servlet/servlet/bank/list").then(function(response) {
         var obj = response.data;
 

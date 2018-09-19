@@ -3,8 +3,6 @@ package br.com.olivum.banking.servlet;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +20,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 
 import br.com.olivum.banking.database.BankDatabase;
-import br.com.olivum.banking.model.Bank;
 import br.com.olivum.banking.model.User;
 import br.com.olivum.banking.model.UserSession;
 import br.com.olivum.banking.protocol.RequestResponse;
@@ -154,7 +151,8 @@ public class UserLoginServlet extends HttpServlet {
                 // Set response
 
                 requestResponse.setStatus(ServerResponse.Status.OK);
-                requestResponse.setMessage("login.ok");
+                requestResponse.setMessage("user.login");
+                requestResponse.setData(userSession);
             }
             else {
                 requestResponse.setStatus(ServerResponse.Status.ERROR);

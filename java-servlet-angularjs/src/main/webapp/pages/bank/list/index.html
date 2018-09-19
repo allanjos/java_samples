@@ -1,4 +1,8 @@
 <div ng-controller="bankListCtrl">
+    <div align="right">
+        <button ng-click="newBankDialogRequest()">New bank</button>
+    </div>
+
     <h1>Banks</h1>
 
     <table ng-table="tableBanks" class="table" show-filter="true">
