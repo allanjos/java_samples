@@ -23,7 +23,7 @@ public class TestServlet extends HttpServlet {
 
         out.println("<h1>TestServlet</h1>");
 
-        out.println("<a href=\"index.html\">Go to index.html</a>");
+        out.println("<a href=\"../index.html\">Go to index.html</a>");
 
         out.println("</body>");
 
