@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.com.olivum.java.maven</groupId>
-    <artifactId>java-maven</artifactId>
+    <artifactId>execjar</artifactId>
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
@@ -46,7 +46,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
-                            <mainClass>br.com.olivum.java.junit.App</mainClass>
+                            <mainClass>br.com.olivum.java.execjar.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -66,9 +66,10 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                        <mainClass>br.com.olivum.java.junit.App</mainClass>
+                            <mainClass>br.com.olivum.java.execjar.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

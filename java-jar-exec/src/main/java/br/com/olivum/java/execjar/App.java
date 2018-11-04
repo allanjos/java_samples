@@ -1,4 +1,4 @@
-package br.com.olivum.java.junit;
+package br.com.olivum.java.execjar;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
