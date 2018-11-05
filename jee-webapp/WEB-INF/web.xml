@@ -5,7 +5,7 @@
   id="jee-webapp"
   version="3.1">
 
-  <display-name>Spring MVC</display-name>
+  <display-name>JEE web application</display-name>
 
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

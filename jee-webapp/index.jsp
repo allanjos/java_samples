@@ -16,8 +16,10 @@
 
     <br/><br/>
 
-    <!-- Remote IP address of the client -->
-    <% out.println("Your IP address is " + request.getRemoteAddr()); %>
+    <!-- Some environment information -->
+    Page context path: ${pageContext.request.contextPath}
+    <br/>
+    Requester IP address: <% out.println(request.getRemoteAddr()); %>
 
 
   </body>
