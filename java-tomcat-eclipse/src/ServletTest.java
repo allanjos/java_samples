@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,14 @@ public class ServletTest extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().append("Served at: ").append(request.getContextPath());
+        PrintWriter writer = response.getWriter();
+
+        writer.append("<h1>Servlet</h1>");
+
+        writer.append("<a href=\"index.jsp\">Go to main page</a>");
+
+        writer.append("<br/><br/>");
+
+        writer.append("Served at: " + request.getContextPath());
     }
 }
