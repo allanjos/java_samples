@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Investments</title>
+<title>JSP file</title>
 </head>
 <body>
     1 2 3 4 5
