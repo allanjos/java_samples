@@ -1,7 +1,15 @@
 package br.com.olivum.springweb.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "investment")
 public class Investment {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
+
     private String name;
 
     public Investment(long id, String name) {
