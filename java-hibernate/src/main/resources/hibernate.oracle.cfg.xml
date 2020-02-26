@@ -9,7 +9,7 @@
         <property name="connection.password">passcode</property>
         <property name="connection.pool_size">1</property>
         <property name="show_sql">TRUE</property>
-        <property name="format_sql">false</property> 
+        <property name="format_sql">false</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="br.com.olivum.java.hibernate.Product"/>

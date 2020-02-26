@@ -10,12 +10,12 @@ import org.hibernate.internal.util.config.ConfigurationException;
 
 public class Main {
     private static SessionFactory sessionFactoryMySQL;
-    private static SessionFactory sessionFactorySqlServer;
-    private static SessionFactory sessionFactoryOracle;
+    //private static SessionFactory sessionFactorySqlServer;
+    //private static SessionFactory sessionFactoryOracle;
 
     private static String hibernateMySQLCfgFilePath = "hibernate.mysql.cfg.xml";
-    private static String hibernateMsSQLCfgFilePath = "hibernate.mssql.cfg.xml";
-    private static String hibernateOracleCfgFilePath = "hibernate.oracle.cfg.xml";
+    //private static String hibernateMsSQLCfgFilePath = "hibernate.mssql.cfg.xml";
+    //private static String hibernateOracleCfgFilePath = "hibernate.oracle.cfg.xml";
 
     public static void main(String[] args) {
         // MySQL session
@@ -27,46 +27,6 @@ public class Main {
         }
         catch (ConfigurationException e) {
             System.err.println("Error on loading configuration from " + hibernateMySQLCfgFilePath);
-
-            System.err.println("Exception: " + e);
-
-            return;
-        }
-        catch (Throwable e) {
-            System.err.println("Error: " + e);
-
-            return;
-        }
-
-        // SQL Server session
-
-        System.out.println("Starting MS SQL Server session");
-
-        try {
-            sessionFactorySqlServer = new Configuration().configure(hibernateMsSQLCfgFilePath).buildSessionFactory();
-        }
-        catch (ConfigurationException e) {
-            System.err.println("Error on loading configuration from " + hibernateMsSQLCfgFilePath);
-
-            System.err.println("Exception: " + e);
-
-            return;
-        }
-        catch (Throwable e) {
-            System.err.println("Error: " + e);
-
-            return;
-        }
-
-        // Oracle session
-
-        System.out.println("Starting Oracle session");
-
-        try {
-            sessionFactoryOracle = new Configuration().configure(hibernateOracleCfgFilePath).buildSessionFactory();
-        }
-        catch (ConfigurationException e) {
-            System.err.println("Error on loading configuration from " + hibernateOracleCfgFilePath);
 
             System.err.println("Exception: " + e);
 
@@ -103,6 +63,27 @@ public class Main {
 
         sessionFactoryMySQL.close();
 
+        /*
+        // SQL Server session
+
+        System.out.println("Starting MS SQL Server session");
+
+        try {
+            sessionFactorySqlServer = new Configuration().configure(hibernateMsSQLCfgFilePath).buildSessionFactory();
+        }
+        catch (ConfigurationException e) {
+            System.err.println("Error on loading configuration from " + hibernateMsSQLCfgFilePath);
+
+            System.err.println("Exception: " + e);
+
+            return;
+        }
+        catch (Throwable e) {
+            System.err.println("Error: " + e);
+
+            return;
+        }
+
         // Register in SQL Server
 
         // Register new product
@@ -125,6 +106,28 @@ public class Main {
         sessionSqlServer.close();
 
         sessionFactorySqlServer.close();
+        */
+
+        /*
+        // Oracle session
+
+        System.out.println("Starting Oracle session");
+
+        try {
+            sessionFactoryOracle = new Configuration().configure(hibernateOracleCfgFilePath).buildSessionFactory();
+        }
+        catch (ConfigurationException e) {
+            System.err.println("Error on loading configuration from " + hibernateOracleCfgFilePath);
+
+            System.err.println("Exception: " + e);
+
+            return;
+        }
+        catch (Throwable e) {
+            System.err.println("Error: " + e);
+
+            return;
+        }
 
         // Register in Oracle
 
@@ -148,6 +151,7 @@ public class Main {
         sessionOracle.close();
 
         sessionFactoryOracle.close();
+        */
 
         System.out.println("Finishing");
 

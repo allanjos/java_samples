@@ -20,13 +20,13 @@ public class MssqlSampleApp {
 
             Class.forName(driverName);
 
-            String serverName = "10.60.100.166:1433";
-            String databaseName = "whplus";
+            String serverName = "127.0.0.1:1433";
+            String databaseName = "test";
 
             String url = "jdbc:sqlserver://" + serverName + ";databaseName=" + databaseName + ";";
 
-            String username = "admin01";
-            String password = "sqlserver";
+            String username = "x";
+            String password = "y";
 
             System.out.println("Connection URL: " + url);
 
