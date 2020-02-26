@@ -29,8 +29,6 @@ public class InvestmentsController {
         l.add("test 2");
         l.add("test 3");
 
-        //return new ModelAndView("investment", "command", new Investment(1, "Investment 01"));
-
         return l;
     }
 }
