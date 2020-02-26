@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -22,7 +23,7 @@ import br.com.olivum.banking.protocol.ServerResponse;
 @WebServlet("/servlet/bank/new")
 public class BankNewServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(BankNewServlet.class);
+    private static final Logger logger = LogManager.getLogger(BankNewServlet.class);
 
     public BankNewServlet() {
         super();

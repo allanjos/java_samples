@@ -32,6 +32,10 @@ app.controller('userLoginCtrl', function($scope, $http, $state, $cookies, userSe
 
                 var userSession = obj.data;
 
+                if (!userSession) {
+                    $scope.status = 'Invalid user session';
+                }
+
                 console.log('User session:');
                 console.log('ID: ' + JSON.stringify(userSession.id));
                 console.log('User ID: ' + JSON.stringify(userSession.userId));

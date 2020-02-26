@@ -3,10 +3,10 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost/banking?useSSL=false</property>
+        <property name="connection.url">jdbc:mysql://localhost/test?useSSL=false</property>
         <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
-        <property name="connection.username">banking</property>
-        <property name="connection.password">banking486</property>
+        <property name="connection.username">x</property>
+        <property name="connection.password">y</property>
         <property name="connection.pool_size">1</property>
         <property name="show_sql">TRUE</property>
         <property name="format_sql">false</property>

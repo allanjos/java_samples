@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
-
 import com.google.gson.Gson;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import br.com.olivum.banking.database.BankDatabase;
 import br.com.olivum.banking.model.Bank;
@@ -22,7 +23,7 @@ import br.com.olivum.banking.protocol.ServerResponse;
 @WebServlet("/servlet/bank/list")
 public class BankListServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(BankListServlet.class);
+    private static final Logger logger = LogManager.getLogger(BankListServlet.class);
 
     public BankListServlet() {
         super();

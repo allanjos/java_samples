@@ -1,13 +1,14 @@
 package br.com.olivum.banking.database;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.internal.util.config.ConfigurationException;
 
 public class BankDatabase {
-    private static final Logger logger = Logger.getLogger(BankDatabase.class);
+    private static final Logger logger = LogManager.getLogger(BankDatabase.class);
     private static BankDatabase instance = new BankDatabase();
     private static SessionFactory sessionFactory = null;
     private static Session session = null;
