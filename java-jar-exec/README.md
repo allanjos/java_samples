@@ -8,4 +8,4 @@
 
 ### Execution
 
-   java -jar target/execjar-1.0-SNAPSHOT.jar
+    java -jar target/execjar-1.0-SNAPSHOT.jar
