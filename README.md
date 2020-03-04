@@ -1,5 +1,6 @@
 # Java samples
 
+- [Spring Boot](java-spring-boot/)
 - [Spring Web](java-spring-web/)
 - [Spring Desktop](java-spring-desktop/)
 - [Servlet AngularJS](java-servlet-angularjs)
