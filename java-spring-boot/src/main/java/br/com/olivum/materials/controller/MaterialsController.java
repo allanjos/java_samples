@@ -2,6 +2,7 @@ package br.com.olivum.materials.controller;
 
 import br.com.olivum.materials.protocol.RequestResponse;
 import br.com.olivum.materials.protocol.RequestResponseList;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,12 @@ import br.com.olivum.materials.model.Material;
 import br.com.olivum.materials.service.MaterialsService;
 
 @Controller
-@RequestMapping(value = "/rest/material")
+@RequestMapping(value = "/api/material")
 public class MaterialsController {
     @Autowired
     MaterialsService materialsService;
 
+    @ApiOperation(value = "Get materials list")
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public RequestResponseList getMaterialsList() {
@@ -32,6 +34,7 @@ public class MaterialsController {
         return requestResponseList;
     }
 
+    @ApiOperation(value = "Register new material")
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public RequestResponse newMaterial(@RequestBody Material material) {
@@ -48,6 +51,7 @@ public class MaterialsController {
         return requestResponse;
     }
 
+    @ApiOperation(value = "Update material information")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Material updateMaterial(@PathVariable("id") long id, @RequestBody Material material) {
@@ -62,6 +66,7 @@ public class MaterialsController {
         return material;
     }
 
+    @ApiOperation(value = "Get material information")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Material getMaterialInfo(@PathVariable("id") long id) {
@@ -72,6 +77,7 @@ public class MaterialsController {
         return material;
     }
 
+    @ApiOperation(value = "Delete material information")
     @RequestMapping(value = "/del", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Boolean deleteMaterial(@RequestBody Material material) {
